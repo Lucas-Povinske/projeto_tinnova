@@ -8,10 +8,10 @@ package br.com.tinnova.votacao;
 public class Votacao {
 
     // Variáveis
-    private int total;
-    private int validos;
-    private int brancos;
-    private int nulos;
+    private final int total;
+    private final int validos;
+    private final int brancos;
+    private final int nulos;
 
     // Construtor
     public Votacao(int total, int validos, int brancos, int nulos) {
