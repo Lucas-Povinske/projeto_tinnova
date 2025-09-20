@@ -11,8 +11,7 @@
 
       <label>Marca* 
         <input formControlName="marca"
-               [class.invalid]="form.get('marca')?.errors?.marcaInvalida && form.get('marca')?.touched" 
-               list="marcas-list"/>
+               [class.invalid]="form.get('marca')?.errors?.marcaInvalida && form.get('marca')?.touched"/>
         <span class="error" *ngIf="form.get('marca')?.errors?.marcaInvalida && form.get('marca')?.touched">
           Marca inválida
         </span>
