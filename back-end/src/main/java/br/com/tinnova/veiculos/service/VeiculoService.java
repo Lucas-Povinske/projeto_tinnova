@@ -84,7 +84,7 @@ public class VeiculoService {
   }
 
   // Apaga um veículo
-  public void delete(Long id) {
+  public void deleteVeiculo(Long id) {
     veiculoRepository.deleteById(id);
   }
 
