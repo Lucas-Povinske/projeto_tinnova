@@ -9,7 +9,7 @@ A SPA (Single Page Application) consome a API via o caminho relativo /veiculos.
 Os arquivos estão containerizados via Docker e o Nginx faz o proxy para a API.
 
 ---
-## Como executar os desafios 1 a 4
+## 📑 Como executar os desafios 1 a 4
 Os desafios 1 a 4 (Bubble Sort, Fatorial, Múltiplos e Votação) estão na pasta `back-end/src/main/java/com/tinnova/` como classes Java independentes.
 Cada um deles tem um método `main` para execução direta via IDE ou linha de comando (Maven).
 ---
