@@ -24,7 +24,7 @@ Os arquivos estão containerizados via Docker e o Nginx faz o proxy para a API.
 Na **raiz do repositório** (onde está `docker-compose.yml`):
 
 ```bash
-    docker compose up --build
+docker compose up --build
 ```
 
 Acesse:
@@ -76,10 +76,10 @@ docker compose down -v
 ### Back-end (Java 17 + Maven)
 1) Em `src/main/resources/application.properties` (dev):
 ```properties
-  spring.datasource.url=jdbc:postgresql://localhost:5432/tinnova
-  spring.datasource.username=tinnova
-  spring.datasource.password=tinnova
-  spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:postgresql://localhost:5432/tinnova
+spring.datasource.username=tinnova
+spring.datasource.password=tinnova
+spring.jpa.hibernate.ddl-auto=update
 ```
 
 2) Rodar:
@@ -93,10 +93,10 @@ mvn clean spring-boot:run
 Instalar e subir:
 
 ```bash
-    cd front-end
-    npm ci
-    npm start -- --proxy-config proxy.conf.json
-    # SPA em http://localhost:4200
+cd front-end
+npm ci
+npm start -- --proxy-config proxy.conf.json
+# SPA em http://localhost:4200
 ```
 ---
 ## 🗂️ Estrutura sugerida
@@ -133,11 +133,11 @@ projeto_tinnova/
   - Use o proxy do Angular em dev ou rode via Docker/Nginx. 
   - Garanta que o service usa base RELATIVA (/veiculos).
 
-- Postgres credenciais não aplicadas 
+- Postgres: "Credenciais não aplicadas"
   - As variáveis POSTGRES_* só valem na primeira inicialização do volume.
       Para mudar credenciais, rode: docker compose down -v e suba novamente.
 
-- Conexão recusada / “cannot invoke … sqlExceptionHelper() is null” 
+- Conexão recusada - “cannot invoke … sqlExceptionHelper() is null” 
   - Geralmente DB indisponível: confirme URL (localhost:5432 ou db:5432 no Docker)
       e credenciais tinnova/tinnova.
 
