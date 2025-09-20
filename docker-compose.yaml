@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: postgres-tinnova
+    environment:
+      POSTGRES_USER: tinnova
+      POSTGRES_PASSWORD: tinnova
+      POSTGRES_DB: tinnova
+    ports: [ "5432:5432" ]
+    volumes:
+      - ./db/pgdata:/var/lib/postgresql/data
+      # opcional: scripts .sql iniciais
+      # - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tinnova -d tinnova || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: api-tinnova
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/tinnova
+      SPRING_DATASOURCE_USERNAME: tinnova
+      SPRING_DATASOURCE_PASSWORD: tinnova
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports: [ "8080:8080" ]
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile.web
+    container_name: web-tinnova
+    ports: [ "4200:80" ]
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on: [ api ]
