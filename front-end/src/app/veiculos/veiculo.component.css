@@ -69,6 +69,17 @@ input:focus, select:focus, textarea:focus{
   box-shadow: var(--ring);
 }
 
+input.invalid {
+  border-color: #dc2626;
+  background: #fff0f0;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.95em;
+  margin-top: 2px;
+}
+
 /* Alinhamento de checkboxes */
 label:has(> input[type="checkbox"]){
   flex-direction: row; 

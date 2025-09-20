@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FormsModule } from '@angular/forms';
 import { VeiculosService } from '../core/services/veiculos.service';
 import { Veiculo } from '../core/models/veiculo.model';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 const MARCAS_VALIDAS = [
   'Volkswagen','Ford','Honda','Chevrolet','Fiat','Toyota',
@@ -41,11 +42,21 @@ export class VeiculosComponent implements OnInit {
     });
   }
 
+  // Validação customizada para marcas válidas
+  marcaValidaValidator(marcasValidas: string[]) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = (control.value || '').trim();
+      if (!value) return null; // Required handled separately
+      const isValid = marcasValidas.some(m => m.toLowerCase() === value.toLowerCase());
+      return isValid ? null : { marcaInvalida: true };
+    };
+  }
+
   ngOnInit(): void { 
     // Inicializa o formulário
     this.form = this.fb.group({
     veiculo: ['', Validators.required],
-    marca:   ['', Validators.required],
+    marca:   ['', [Validators.required, this.marcaValidaValidator(this.marcasValidas)]],
     ano:     [new Date().getFullYear(), [Validators.required, Validators.min(1886)]],
     cor:     [''],
     descricao: [''],
