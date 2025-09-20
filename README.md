@@ -9,8 +9,12 @@ A SPA (Single Page Application) consome a API via o caminho relativo /veiculos.
 Os arquivos estão containerizados via Docker e o Nginx faz o proxy para a API.
 
 ---
+## 📑 Como executar os desafios 1 a 4
+Os desafios 1 a 4 (Bubble Sort, Fatorial, Múltiplos e Votação) estão na pasta `back-end/src/main/java/com/tinnova/` como classes Java independentes.
+Cada um deles tem um método `main` para execução direta via IDE ou linha de comando (Maven).
+---
 
-## 🚀 Como executar o projeto (Docker Compose)
+## 🚀 Como executar o desafio 5 (Docker Compose)
 
 ### Pré-requisitos
 - Docker Desktop (ou Docker Engine + Compose v2)
@@ -106,7 +110,18 @@ projeto_tinnova/
 ├─ back-end/                  # back-end (Spring Boot)
 │  ├─ src/
 │  │  ├─ main/
-│  │  │  ├─ java/com/tinnova/...
+│  │  │  ├─ java/com/tinnova/
+│  │  │  │  ├─ bubble/BubbleSort.java
+│  │  │  │  ├─ fatorial/Fatorial.java
+│  │  │  │  ├─ multiplos/Multiplos.java
+│  │  │  │  ├─ votacao/Votacao.java
+│  │  │  │  └─ veiculo/
+│  │  │  │     ├─ controller/VeiculoController.java
+│  │  │  │     ├─ dto/VeiculoDto.java
+│  │  │  │     ├─ model/Veiculo.java
+│  │  │  │     ├─ repository/VeiculoRepository.java
+│  │  │  │     └─ service/VeiculoService.java
+│  │  │  │  
 │  │  │  └─ resources/
 │  │  │     └─ application.properties
 │  │  └─ test/
