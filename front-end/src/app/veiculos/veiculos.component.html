@@ -13,9 +13,6 @@
         <input formControlName="marca"
                [class.invalid]="form.get('marca')?.errors?.marcaInvalida && form.get('marca')?.touched" 
                list="marcas-list"/>
-        <datalist id="marcas-list">
-          <option *ngFor="let m of marcasValidas" [value]="m"></option>
-        </datalist>
         <span class="error" *ngIf="form.get('marca')?.errors?.marcaInvalida && form.get('marca')?.touched">
           Marca inválida
         </span>
