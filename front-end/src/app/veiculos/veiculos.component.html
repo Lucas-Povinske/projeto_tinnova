@@ -1,0 +1,101 @@
+<div class="veiculos-container">
+  <h2>Veículos</h2>
+
+  <!-- ===== FORMULÁRIO (Criar/Editar) ===== -->
+  <section class="card">
+    <h3 *ngIf="editandoId() === null">Novo veículo</h3>
+    <h3 *ngIf="editandoId() !== null">Editar veículo #{{editandoId()}}</h3>
+
+    <form [formGroup]="form" (ngSubmit)="salvar()" class="grid">
+      <label>Veículo* <input formControlName="veiculo" /></label>
+
+      <label>Marca* 
+        <select formControlName="marca">
+          <option value="" disabled>Selecione</option>
+          <option *ngFor="let m of marcasValidas" [value]="m">{{m}}</option>
+        </select>
+      </label>
+
+      <label>Ano* <input type="number" formControlName="ano" /></label>
+      <label>Cor <input formControlName="cor" /></label>
+
+      <label class="full">Descrição
+        <textarea rows="3" formControlName="descricao"></textarea>
+      </label>
+
+      <label>Vendido? <input type="checkbox" formControlName="vendido" /></label>
+
+      <div class="full actions">
+        <button [disabled]="form.invalid">Salvar</button>
+        <button type="button" (click)="cancelarEdicao()" class="ghost" *ngIf="editandoId() !== null">Cancelar</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ===== ESTATÍSTICAS ===== -->
+  <section class="card">
+    <h3>Estatísticas</h3>
+
+    <div class="stats">
+      <div>
+        <div class="stat-num">{{naoVendidos()}}</div>
+        <div class="stat-label">Não vendidos</div>
+      </div>
+      <div>
+        <div class="stat-num">{{ultimaSemana().length}}</div>
+        <div class="stat-label">Cadastrados na última semana</div>
+      </div>
+      <div>
+        <div class="stat-num">{{veiculos().length}}</div>
+        <div class="stat-label">Total</div>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div>
+        <h4>Distribuição por década</h4>
+        <ul><li *ngFor="let d of distrDecada()">{{d.chave}} → {{d.quantidade}}</li></ul>
+      </div>
+      <div>
+        <h4>Distribuição por marca</h4>
+        <ul><li *ngFor="let d of distrMarca()">{{d.chave}} → {{d.quantidade}}</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LISTA + FILTROS ===== -->
+  <section class="card">
+    <h3>Lista</h3>
+
+    <form class="filters">
+      <input placeholder="Marca" [ngModel]="filtroMarca()" (ngModelChange)="filtroMarca.set($event)" name="marca"/>
+      <input type="number" placeholder="Ano" [ngModel]="filtroAno()" (ngModelChange)="filtroAno.set($event)" name="ano"/>
+      <input placeholder="Cor" [ngModel]="filtroCor()" (ngModelChange)="filtroCor.set($event)" name="cor"/>
+      <button type="button" (click)="limparFiltros()">Limpar</button>
+    </form>
+
+    <p *ngIf="carregando()">Carregando...</p>
+
+    <table *ngIf="!carregando() && listaFiltrada().length">
+      <thead>
+        <tr><th>ID</th><th>Veículo</th><th>Marca</th><th>Ano</th><th>Cor</th><th>Vendido</th><th>Ações</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of listaFiltrada(); trackBy: trackById">
+          <td>{{v.id}}</td>
+          <td>{{v.veiculo}}</td>
+          <td>{{v.marca}}</td>
+          <td>{{v.ano}}</td>
+          <td>{{v.cor || '—'}}</td>
+          <td>{{v.vendido ? 'Sim' : 'Não'}}</td>
+          <td>
+            <button (click)="editar(v)">Editar</button>
+            <button (click)="excluir(v.id)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="!carregando() && !listaFiltrada().length">Nenhum veículo encontrado.</p>
+  </section>
+</div>
